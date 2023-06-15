@@ -1,0 +1,29 @@
+name: build
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  buildx:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          platforms: linux/amd64,linux/arm64
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: ghcr.io/unsafesystems/lambda-review-apps:latest,ghcr.io/unsafesystems/lambda-review-apps:${{ github.ref_name }}
+          platforms: linux/amd64,linux/arm64
