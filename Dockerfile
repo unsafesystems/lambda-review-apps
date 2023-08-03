@@ -1,6 +1,6 @@
 FROM quay.io/oauth2-proxy/oauth2-proxy:v7.4.0 as base
 
-FROM --platform=$BUILDPLATFORM golang:1.20.6-alpine3.17 as builder
+FROM --platform=$BUILDPLATFORM golang:1.20.7-alpine3.17 as builder
 
 WORKDIR /src
 COPY . .
