@@ -12,7 +12,7 @@ RUN --mount=target=. \
     --mount=type=cache,target=/go/pkg \
     GOOS=$TARGETOS GOARCH=$TARGETARCH go build -o /bin/out .
 
-FROM node:18.16.0-alpine3.18
+FROM node:21.5.0-alpine3.18
 
 RUN apk add --no-cache supervisor && \
     touch /etc/supervisord.conf && \
